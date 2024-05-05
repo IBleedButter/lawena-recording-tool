@@ -116,7 +116,7 @@ public abstract class CommandLine {
      * Returns the {@link Path} where the VPK included with TF2 is located. This will be used to extract skyboxes for
      * preview generation and loading, and could be used for other features like packing, extracting, listing, etc.
      *
-     * @param tfpath the path where the HL2 executable for TF2 is located
+     * @param tfpath the path where the TF2 executable is located
      * @return The <code>Path</code> to the VPK tool resolved from the tfpath.
      */
     protected abstract Path resolveVpkToolPath(Path tfpath);
@@ -139,7 +139,7 @@ public abstract class CommandLine {
     /**
      * Extracts VPK-packed files to a specified path only if they not exist in the destination path.
      *
-     * @param tfpath  The {@link Path} where HL2 main executable for TF2 is located
+     * @param tfpath  The {@link Path} where TF2 main executable is located
      * @param vpkname The name of the VPK file to possibly extract the files
      * @param dest    The <code>Path</code> where the files will be extracted to
      * @param files   The filenames included in the VPK that might be extracted
@@ -216,7 +216,7 @@ public abstract class CommandLine {
     /**
      * List the files of a specified VPK file.
      *
-     * @param tfpath  The {@link Path} where HL2 main executable for TF2 is located
+     * @param tfpath  The {@link Path} where TF2 main executable is located
      * @param vpkpath The <code>Path</code> where the VPK file to search is located
      * @return A {@link List} of <code>String</code>s of all the files inside the specified VPK file.
      */
@@ -295,7 +295,7 @@ public abstract class CommandLine {
                 if (mode.equals("hlae")) {
                     options.put("-insecure", "");
                 }
-                // Launch using hl2.exe
+                // Launch using tf_win64.exe
                 options.put("-steam", "");
                 options.put("-game", "tf");
             }

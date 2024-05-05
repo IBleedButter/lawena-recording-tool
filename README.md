@@ -1,7 +1,4 @@
-Lawena Recording Tool [![Build Status](https://travis-ci.org/quanticc/lawena-recording-tool.svg?branch=v4.1.x)](https://travis-ci.org/quanticc/lawena-recording-tool) [![Join the chat at https://gitter.im/quanticc/lawena-recording-tool](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/quanticc/lawena-recording-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-=====================
-
-![Lawena Recording Tool](http://i.imgur.com/dlRdaeA.png)
+![Lawena Recording Tool](lawena.png)
 
 Lawena is a simple Java program that greatly enhances your TF2 and other Source games image quality for recording purposes, with little performance loss compared to other alternatives. Records using in-game **Source Recorder**, with key bindings to ease the process.
 
@@ -21,14 +18,40 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
 * Creates backups in case something goes wrong
 * Automatic updates
 
-## Installing Lawena
+## Changes from original Lawena
 
-Check the [releases](https://github.com/quanticc/lawena-recording-tool/releases) page and follow the instructions. If you don't have Java installed you will find a direct download link there.
+* Added 64-bit TF2 support
+* Tweaked some default settings
+    * Resolution changed from 1280x760 to 1920x1080
+    * VModelFOV changed from 70 to 90
+    * Motion blur disabled
+    * Crosshair enabled
+    * Combat text enabled
+    * Hitsounds enabled
+* Added `-insecure` as default launch option
+* Added some default cfg settings (thanks Phnx!)
+    * `cl_jiggle_bone_framerate_cutoff 0`: fixes botkiller shaking
+    * `r_portalsopenall 1`: fixes doorway flash glitch
+    * `violence_agibs 1;violence_hgibs 1;violence_ablood 1;violence_hblood 1`: makes sure gibs remain enabled
+    * `hud_saytext_time 0`: makes sure chat stays disabled
+* Updated Java dependencies
+    * com.threerings:getdown:1.6.4->1.7.1
+    * net.lingala.zip4j:zip4j:1.3.2->1.3.3
+    * com.github.spullara.mustache.java:compiler:0.9.5->0.9.13
+    * junit:junit:4.12->4.13.2
+
+## Building Lawena
+
+```
+git clone https://github.com/ibleedbutter/lawena-recording-tool.git
+cd lawena-recording-tool.git
+
+```
 
 ## Credits
 
 * Original project created by Montz (currently inactive)
-* Current developer: [Quantic](http://steamcommunity.com/profiles/76561198012092861/) since June 2013
+* Original developer: [Quantic](http://steamcommunity.com/profiles/76561198012092861/) since June 2013 to December 2018(?)
 * Graphic `.cfg` files based on those made by [Chris Down's](https://chrisdown.name/tf2/) maxquality config.
 * Built-in **Killnotices only** and **Medic** HUD made by [mih](https://github.com/Kuw/recordinghuds)
 * Skyboxes included made by [komaokc](http://gamebanana.com/members/submissions/textures/289553) from GameBanana

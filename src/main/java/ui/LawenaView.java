@@ -147,7 +147,7 @@ public class LawenaView extends JFrame {
         JMenu mnLaunchMode = new JMenu("Launch Mode");
         mnAdvanced.add(mnLaunchMode);
 
-        JRadioButtonMenuItem mnSourceLaunch = new JRadioButtonMenuItem("Launch using HL2 (default)");
+        JRadioButtonMenuItem mnSourceLaunch = new JRadioButtonMenuItem("Launch using TF2 (default)");
         JRadioButtonMenuItem mnSteamLaunch = new JRadioButtonMenuItem("Launch using Steam");
         JRadioButtonMenuItem mnHlaeLaunch =
             new JRadioButtonMenuItem("Launch using HLAE with -insecure");

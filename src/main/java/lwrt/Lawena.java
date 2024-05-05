@@ -762,7 +762,7 @@ public class Lawena {
         view.getChckbxmntmBackupMode().setSelected(settings.getBoolean(Key.DeleteBackupsWhenRestoring));
         view.getInstallFonts().setSelected(settings.getBoolean(Key.InstallFonts));
         view.getSourceLaunch().setSelected(true);
-        view.getSourceLaunch().setSelected(settings.getString(Key.LaunchMode).equals("hl2"));
+        view.getSourceLaunch().setSelected(settings.getString(Key.LaunchMode).equals("tf2"));
         view.getSteamLaunch().setSelected(settings.getString(Key.LaunchMode).equals("steam"));
         view.getHlaeLaunch().setSelected(settings.getString(Key.LaunchMode).equals("hlae"));
         view.getCopyUserConfig().setSelected(settings.getBoolean(Key.CopyUserConfig));
@@ -818,7 +818,7 @@ public class Lawena {
         settings.setBoolean(Key.InstallFonts, view.getInstallFonts().isSelected());
         settings.setBoolean(Key.CopyUserConfig, view.getCopyUserConfig().isSelected());
         if (view.getSourceLaunch().isSelected()) {
-            settings.setString(Key.LaunchMode, "hl2");
+            settings.setString(Key.LaunchMode, "tf2");
         } else if (view.getSteamLaunch().isSelected()) {
             settings.setString(Key.LaunchMode, "steam");
         } else if (view.getHlaeLaunch().isSelected()) {

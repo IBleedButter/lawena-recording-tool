@@ -144,6 +144,22 @@ public class SettingsManager {
         lines.add("alias net_graph \"\"");
         lines.add("alias cl_showfps \"\"");
         lines.add("alias voice_enable \"\"");
+        lines.add("cl_jiggle_bone_framerate_cutoff 0");
+        lines.add("alias cl_jiggle_bone_framerate_cutoff \"\"");
+        lines.add("violence_agibs 1");
+        lines.add("violence_hgibs 1");
+        lines.add("violence_ablood 1");
+        lines.add("violence_hblood 1");
+        lines.add("alias violence_agibs \"\"");
+        lines.add("alias violence_hgibs \"\"");
+        lines.add("alias violence_ablood \"\"");
+        lines.add("alias violence_hblood \"\"");
+        lines.add("r_portalsopenall 1");
+        lines.add("alias r_portalsopenall \"\"");
+        lines.add("hud_saytext_time 0");
+        lines.add("alias hud_saytext_time \"\"");
+        lines.add("tf_use_min_viewmodels 0");
+        lines.add("alias tf_use_min_viewmodels \"\"");
         Files.write(Paths.get("cfg", "settings.cfg"), lines, Charset.forName("UTF-8"));
 
         if (demoname != null) {
@@ -482,20 +498,20 @@ public class SettingsManager {
         MovieDir(""),
         SteamDir(""),
         AltSteamDir(""),
-        Width(1280, 640, Integer.MAX_VALUE),
-        Height(720, 360, Integer.MAX_VALUE),
+        Width(1920, 640, Integer.MAX_VALUE),
+        Height(1080, 360, Integer.MAX_VALUE),
         Framerate(120, 24, Integer.MAX_VALUE),
         DxLevel("98", "80", "81", "90", "95", "98"),
         Hud("hud_medic", "hud_killnotices", "hud_medic", "hud_default", "custom"),
         Skybox("Default"),
         CustomResources("no_announcer_voices.vpk|no_applause_sounds.vpk|no_domination_sounds.vpk"),
         ViewmodelSwitch("on", "on", "off", "default"),
-        ViewmodelFov(70, 1, 179),
-        MotionBlur(true),
-        Crosshair(false),
+        ViewmodelFov(90, 1, 179),
+        MotionBlur(false),
+        Crosshair(true),
         CrosshairSwitch(false),
-        CombatText(false),
-        Hitsounds(false),
+        CombatText(true),
+        Hitsounds(true),
         Voice(false),
         SteamCloud(false),
         Condebug(true),
@@ -506,7 +522,7 @@ public class SettingsManager {
         LogFileLevel("FINE"),
         LogUiLevel("FINE"),
         LaunchTimeout(120, 0, Integer.MAX_VALUE),
-        Insecure(false),
+        Insecure(true),
         VdmSkipMode("SKIP_AHEAD"),
         VdmSkipStartCommand("demo_timescale 5"),
         VdmSkipStopCommand("demo_timescale 1"),
@@ -523,8 +539,8 @@ public class SettingsManager {
         BigFolderMBThreshold(200, 0, Integer.MAX_VALUE),
         SetSystemLookAndFeel(true),
         HlaePath(""),
-        LaunchMode("hl2"),
-        LaunchOptions("-novid -console");
+        LaunchMode("tf2"),
+        LaunchOptions("-novid -console -insecure");
 
         private Object value;
         private List<String> allowedValues;

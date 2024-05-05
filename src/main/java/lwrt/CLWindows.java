@@ -10,11 +10,11 @@ import java.util.logging.Level;
 
 public class CLWindows extends CommandLine {
 
-    private String hl2 = "hl2.exe";
+    private String tf2 = "tf_win64.exe";
 
     @Override
     public ProcessBuilder getBuilderStartTF2(String gamePath) {
-        Path path = Paths.get(gamePath, "..", "hl2.exe");
+        Path path = Paths.get(gamePath, "..", tf2);
         try {
             path = path.toRealPath();
         } catch (IOException e) {
@@ -31,9 +31,9 @@ public class CLWindows extends CommandLine {
 
     @Override
     public ProcessBuilder getBuilderStartHLAE(String hlaePath, String gamePath) {
-        Path hl2Path = Paths.get(gamePath).resolve(".." + File.separator + "hl2.exe");
+        Path tf2Path = Paths.get(gamePath).resolve(".." + File.separator + tf2);
         try {
-            hl2Path = hl2Path.toRealPath();
+            tf2Path = tf2Path.toRealPath();
         } catch (IOException e) {
             log.warning("Could not obtain real path of game executable: " + e.toString());
         }
@@ -44,12 +44,12 @@ public class CLWindows extends CommandLine {
             log.warning("Could not obtain real path of HLAE Source hook DLL: " + e.toString());
         }
         return new ProcessBuilder(hlaePath, "-customLoader", "-autoStart",
-            "-hookDllPath", hookPath.toString(), "-programPath", hl2Path.toString(), "-cmdLine");
+            "-hookDllPath", hookPath.toString(), "-programPath", tf2Path.toString(), "-cmdLine");
     }
 
     @Override
     public ProcessBuilder getBuilderTF2ProcessKiller() {
-        return new ProcessBuilder("taskkill", "/F", "/IM", hl2);
+        return new ProcessBuilder("taskkill", "/F", "/IM", tf2);
     }
 
     @Override
@@ -99,16 +99,16 @@ public class CLWindows extends CommandLine {
         String line;
         ProcessBuilder[] builders =
             {
-                new ProcessBuilder("tasklist", "/fi", "\"imagename eq " + hl2 + "\"", "/nh", "/fo",
+                new ProcessBuilder("tasklist", "/fi", "\"imagename eq " + tf2 + "\"", "/nh", "/fo",
                     "csv"),
-                new ProcessBuilder("cscript", "//NoLogo", new File("batch\\procchk.vbs").getPath(), hl2)};
+                new ProcessBuilder("cscript", "//NoLogo", new File("batch\\procchk.vbs").getPath(), tf2)};
         for (ProcessBuilder pb : builders) {
             try {
                 Process p = pb.start();
                 try (BufferedReader input = newProcessReader(p)) {
                     while ((line = input.readLine()) != null) {
                         log.finest("[" + pb.command().get(0) + "] " + line);
-                        if (line.contains(hl2)) {
+                        if (line.contains(tf2)) {
                             log.finer("TF2 process detected by " + pb.command().get(0));
                             return true;
                         }
