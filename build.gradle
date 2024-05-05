@@ -2,7 +2,6 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'distribution'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -24,7 +23,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.threerings:getdown:1.7.1'
     implementation 'net.lingala.zip4j:zip4j:1.3.3'
     implementation 'com.github.spullara.mustache.java:compiler:0.9.13'
     testImplementation 'junit:junit:4.13.2'
@@ -59,7 +57,7 @@ try {
 jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     archiveFileName = 'lawena.jar'
-    destinationDirectory = file('.')
+    destinationDirectory = file('target')
     def implVersion = (archiveVersion == null ? "v4" : archiveVersion)
     manifest {
         attributes (
@@ -82,74 +80,14 @@ task run(type: JavaExec, dependsOn: 'classes') {
     classpath project.sourceSets.main.runtimeClasspath
 }
 
-distributions {
-    main {}
-    stable {
-        contents {
-            from { ['src/main/dist', 'build/getdown/stable', 'build/gradlew'] }
-            exclude "**/getdown.*.txt"
-            duplicatesStrategy = 'exclude'
-        }
-    }
-    preview {
-        contents {
-            from { ['src/main/dist', 'build/getdown/preview', 'build/gradlew'] }
-            exclude "**/getdown.*.txt"
-            duplicatesStrategy = 'exclude'
-        }
-    }
-}
-
-task buildLauncher {
-    inputs.file 'launcher/lawena-launcher.xml'
-    outputs.file 'launcher/lawena.exe'
+task exe(dependsOn: 'jar') {
     doLast {
         exec {
-            workingDir 'launcher'
             if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-                commandLine 'cmd', '/c', launch4jPath, 'lawena-launcher.xml'
-            } else {
-                commandLine 'java', '-jar', launch4jPath, 'lawena-launcher.xml'
+                commandLine 'cmd', '/c', 'buildLauncher.bat'
             }
         }
     }
-}
-
-task buildLauncher2 {
-    inputs.file 'launcher/lawena-skip-updater.xml'
-    outputs.file 'launcher/lawena-skip-updater.exe'
-    doLast {
-        exec {
-            workingDir 'launcher'
-            if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-                commandLine 'cmd', '/c', launch4jPath, 'lawena-skip-updater.xml'
-            } else {
-                commandLine launch4jPath, 'lawena-skip-updater.xml'
-            }
-        }
-    }
-}
-
-task copyLauncher(type: Copy, dependsOn: 'buildLauncher') {
-    from 'launcher/lawena.exe'
-    into 'src/main/dist'
-}
-
-task copyLauncherNew(type: Copy, dependsOn: 'copyLauncher') {
-    from 'launcher/lawena.exe'
-    into 'src/main/dist/lawena/code'
-    rename 'lawena.exe', 'lawena-new.exe'
-}
-
-task copyGetdownClient(type: Copy, dependsOn: 'copyLauncherNew') {
-    from 'launcher/getdown-client.jar'
-    into 'src/main/dist/lawena'
-}
-
-task copyGetdownClientNew(type: Copy, dependsOn: 'copyGetdownClient') {
-    from 'launcher/getdown-client.jar'
-    into 'src/main/dist/lawena/code'
-    rename 'getdown-client.jar', 'getdown-client-new.jar'
 }
 
 task copyMainJar(type: Copy, dependsOn: 'jar') {
@@ -166,7 +104,7 @@ task copyGradleLauncher(type: Copy) {
     into 'build/gradlew/lawena'
 }
 
-task copyLibs(dependsOn: ['copyGetdownClientNew', 'copyMainJar', 'copyGradleLauncher']) {}
+task copyLibs(dependsOn: ['copyMainJar', 'copyGradleLauncher']) {}
 
 task packResources(type: Zip) {
     archiveFileName = 'lwrtresources.jar'
@@ -198,99 +136,3 @@ task packSkyboxes(type: Zip) {
 }
 
 task pack(dependsOn: ['packResources', 'packVpks', 'packWinBatches', 'packSkyboxes']) {}
-
-['stable', 'preview'].each { def distName ->
-    def DistName = distName.substring(0, 1).toUpperCase() + distName.substring(1)
-    def latestFolder = 'latest'
-    tasks.create(name: "setup${DistName}Dist", dependsOn: ['copyLibs', 'pack']) {
-        description "Prepares deployment descriptor for packaging ${distName} distribution"
-        def min = file("src/${distName}/dist/lawena/getdown.min.txt")
-        def getdown = file("build/getdown/${distName}/lawena/getdown.txt")
-        inputs.file min
-        outputs.file getdown
-        getdown.getParentFile().mkdirs()
-        getdown.withWriter { w ->
-            min.eachLine { line ->
-                w << line.replaceAll('<version>', buildtime).replaceAll('<channel>', distName) + System.getProperty("line.separator")
-            }
-        }
-    }
-
-    tasks.create(name: "build${DistName}Dist", dependsOn: ["setup${DistName}Dist", "${distName}DistZip"]) {}
-
-    tasks.create(name: "setup${DistName}Deploy", dependsOn: ["build${DistName}Dist", "cleanInstall${DistName}Dist", "install${DistName}Dist"]) {
-        description "Prepares deployment descriptor for deploying ${distName} distribution"
-        def base = file("src/${distName}/dist/lawena/getdown.base.txt")
-        def getdown = file("build/getdown/${distName}/lawena/getdown.full.txt")
-        inputs.file base
-        outputs.file getdown
-        getdown.getParentFile().mkdirs()
-        getdown.withWriter { w ->
-            base.eachLine { line ->
-                w << line.replaceAll('<version>', buildtime).replaceAll('<channel>', distName) + System.getProperty("line.separator")
-            }
-        }
-    }
-
-    tasks.create(name: "deploy${DistName}", dependsOn: "setup${DistName}Deploy") {
-        description "Deploys ${distName} distribution to a local directory"
-        doLast {
-            def sourceTree = fileTree("build/install/lawena-${distName}/lawena")
-            def stampDestFile = file("${deployDir}/${distName}/${buildtime}")
-            def latestDestFile = file("${deployDir}/${distName}/${latestFolder}")
-            copy {
-                from sourceTree
-                into stampDestFile
-            }
-            copy {
-                from file("build/getdown/${distName}/lawena/getdown.full.txt")
-                into file("${deployDir}/${distName}/${buildtime}")
-                rename "getdown.full.txt", "getdown.txt"
-            }
-            javaexec {
-                main 'com.threerings.getdown.tools.Digester'
-                classpath 'launcher/getdown-client.jar'
-                args = [stampDestFile]
-            }
-            copy {
-                from sourceTree
-                into latestDestFile
-            }
-            copy {
-                from file("build/getdown/${distName}/lawena/getdown.full.txt")
-                into file("${deployDir}/${distName}/${latestFolder}")
-                rename "getdown.full.txt", "getdown.txt"
-            }
-            javaexec {
-                main 'com.threerings.getdown.tools.Digester'
-                classpath 'launcher/getdown-client.jar'
-                args = [latestDestFile]
-            }
-            def output = file("${deployDir}/${distName}/buildlist.txt")
-            output.append "${buildtime};${version}\n"
-            // post to webhook about new build
-            "curl --data-urlencode \"message=New version pushed to **${distName}** updater branch: *${version}*\" ${notifyUrl}".execute()
-        }
-    }
-
-    tasks.create(name: "diffDeploy${DistName}", dependsOn: "deploy${DistName}") {
-        description "Deploys and creates diff patch files for ${distName} distribution"
-        doLast {
-            def buildlist = []
-            file("${deployDir}/${distName}").eachDirMatch(~/^[0-9]+$/) { dir ->
-                buildlist.add dir.name
-            }
-            buildlist.sort(java.text.Collator.instance)
-            def latest = buildlist[buildlist.size() - 1]
-            buildlist = buildlist - latest
-            buildlist.each { s ->
-                println "Creating diff between ${s} and latest build ${latest}"
-                javaexec {
-                    main 'com.threerings.getdown.tools.Differ'
-                    classpath 'launcher/getdown-client.jar'
-                    args = ['-verbose', file("${deployDir}/${distName}/${latestFolder}"), file("${deployDir}/${distName}/${s}")]
-                }
-            }
-        }
-    }
-}

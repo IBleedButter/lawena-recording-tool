@@ -65,7 +65,6 @@ public class Lawena {
     private Object lastHud;
     private String version = "4.1";
     private String build;
-    private UpdateHelper updater;
     private LaunchOptionsDialog launchOptionsDialog;
 
     public Lawena(SettingsManager cfg) {
@@ -84,11 +83,6 @@ public class Lawena {
         } else {
             throw new UnsupportedOperationException("OS not supported");
         }
-
-        // Perform after-update checks
-        updater = new UpdateHelper();
-        updater.fileCleanup();
-        updater.loadChannels();
 
         settings = cfg;
         log.fine("Retrieving system dxlevel and Steam path");
@@ -295,12 +289,12 @@ public class Lawena {
             }
 
         });
+        
         view.getMntmAbout().addActionListener(e -> {
             if (dialog == null) {
                 dialog = new AboutDialog(version, build);
                 dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                 dialog.setModalityType(ModalityType.APPLICATION_MODAL);
-                dialog.getBtnUpdater().addActionListener(e1 -> updater.showSwitchUpdateChannelDialog());
             }
             dialog.setVisible(true);
         });

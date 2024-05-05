@@ -36,7 +36,7 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
     * `hud_saytext_time 0`: makes sure chat stays disabled
 * Updated Gradle from 4.3->7.3
 * Updated Java dependencies
-    * com.threerings:getdown:1.6.4->1.7.1
+    * Removed com.threerings:getdown
     * net.lingala.zip4j:zip4j:1.3.2->1.3.3
     * com.github.spullara.mustache.java:compiler:0.9.5->0.9.13
     * junit:junit:4.12->4.13.2
@@ -45,30 +45,41 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
 
 First of all download and install [JDK 17](https://www.oracle.com/java/technologies/downloads/#java17)
 
-*Optionally install Gradle 7.3, but it's fine if you don't, its wrapper is included here*
-
 Now fetch the source code:
 ```
 git clone https://github.com/ibleedbutter/lawena-recording-tool.git
 cd lawena-recording-tool.git
 ```
 
-Build .jar on Windows:
+### Build .jar on Windows:
 
 ```PowerShell
 .\gradlew.bat jar
 ```
 
-Build .exe on Windows (*requires [launch4j](https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/)*):
+The .jar file will be located in the target folder
+
+### Build .exe on Windows:
+
+Download, install and add [WiX Toolset 3](https://github.com/wixtoolset/wix3/releases) to PATH
+
+You should also add `C:\Program Files\Java\jdk-17\bin\` (or wherever you installed JDK 17) to PATH
+
+Now build:
+
 ```PowerShell
-.\gradlew.bat buildLauncher
+.\gradlew.bat exe
 ```
 
-Build .jar on Linux:
+The .exe installer will be located in the bin folder
+
+### Build .jar on Linux:
 
 ```Bash
 ./gradlew jar
 ```
+
+The .jar file will be locate in the target folder
 
 ## Credits
 

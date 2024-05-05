@@ -24,9 +24,13 @@ src/main/dist/lawena/code/*.exe
 *.tar.gz
 *.rar
 hs_err_pid*
+target/
 
 ### Gradle
 .gradle
 /build/
 !gradle-wrapper.jar
 gradle.properties
+
+## .exe
+/bin/

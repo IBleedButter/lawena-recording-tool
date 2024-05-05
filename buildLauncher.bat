@@ -1,0 +1,1 @@
+jpackage --type exe --icon lawena.ico --name Lawena --dest bin --input target --main-class ui.LwrtGUI --main-jar lawena.jar --module-path "C:\Program Files\Java\jdk-17\jmods" --about-url "https://github.com/ibleedbutter/lawena-recording-tool" --win-dir-chooser --win-menu --win-shortcut
