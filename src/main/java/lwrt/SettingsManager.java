@@ -160,6 +160,7 @@ public class SettingsManager {
         lines.add("alias hud_saytext_time \"\"");
         lines.add("tf_use_min_viewmodels 0");
         lines.add("alias tf_use_min_viewmodels \"\"");
+        lines.add("gameui_preventescapetoshow");
         Files.write(Paths.get("cfg", "settings.cfg"), lines, Charset.forName("UTF-8"));
 
         if (demoname != null) {

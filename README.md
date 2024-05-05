@@ -34,6 +34,7 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
     * `r_portalsopenall 1`: fixes doorway flash glitch
     * `violence_agibs 1;violence_hgibs 1;violence_ablood 1;violence_hblood 1`: makes sure gibs remain enabled
     * `hud_saytext_time 0`: makes sure chat stays disabled
+* Updated Gradle from 4.3->7.3
 * Updated Java dependencies
     * com.threerings:getdown:1.6.4->1.7.1
     * net.lingala.zip4j:zip4j:1.3.2->1.3.3
@@ -42,17 +43,40 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
 
 ## Building Lawena
 
+First of all download and install [JDK 17](https://www.oracle.com/java/technologies/downloads/#java17)
+
+*Optionally install Gradle 7.3, but it's fine if you don't, its wrapper is included here*
+
+Now fetch the source code:
 ```
 git clone https://github.com/ibleedbutter/lawena-recording-tool.git
 cd lawena-recording-tool.git
+```
 
+Build .jar on Windows:
+
+```PowerShell
+.\gradlew.bat jar
+```
+
+Build .exe on Windows (*requires [launch4j](https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/)*):
+```PowerShell
+.\gradlew.bat buildLauncher
+```
+
+Build .jar on Linux:
+
+```Bash
+./gradlew jar
 ```
 
 ## Credits
 
 * Original project created by Montz (currently inactive)
 * Original developer: [Quantic](http://steamcommunity.com/profiles/76561198012092861/) since June 2013 to December 2018(?)
+* Current unofficial maintainer: [IBleedButter](https://steamcommunity.com/profiles/76561198130814770) since May 2024
 * Graphic `.cfg` files based on those made by [Chris Down's](https://chrisdown.name/tf2/) maxquality config.
+    * TODO: replace with [mastercomfig](https://mastercomfig.com/) ultra
 * Built-in **Killnotices only** and **Medic** HUD made by [mih](https://github.com/Kuw/recordinghuds)
 * Skyboxes included made by [komaokc](http://gamebanana.com/members/submissions/textures/289553) from GameBanana
 * Includes some content used in PLDX recording tool

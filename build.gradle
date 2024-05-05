@@ -24,10 +24,10 @@ repositories {
 }
 
 dependencies {
-    compile 'com.threerings:getdown:1.7.1'
-    compile 'net.lingala.zip4j:zip4j:1.3.3'
-    compile 'com.github.spullara.mustache.java:compiler:0.9.13'
-    testCompile 'junit:junit:4.13.2'
+    implementation 'com.threerings:getdown:1.7.1'
+    implementation 'net.lingala.zip4j:zip4j:1.3.3'
+    implementation 'com.github.spullara.mustache.java:compiler:0.9.13'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 test {
@@ -57,10 +57,10 @@ try {
 }
 
 jar {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    archiveName = 'lawena.jar'
-    destinationDir = null
-    def implVersion = (version == null ? "v4" : version)
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    archiveFileName = 'lawena.jar'
+    destinationDirectory = file('.')
+    def implVersion = (archiveVersion == null ? "v4" : archiveVersion)
     manifest {
         attributes (
             'Main-Class': mainClassName,
@@ -72,8 +72,8 @@ jar {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.3'
+wrapper {
+    gradleVersion = '7.3'
 }
 
 task run(type: JavaExec, dependsOn: 'classes') {
@@ -169,29 +169,29 @@ task copyGradleLauncher(type: Copy) {
 task copyLibs(dependsOn: ['copyGetdownClientNew', 'copyMainJar', 'copyGradleLauncher']) {}
 
 task packResources(type: Zip) {
-    archiveName = 'lwrtresources.jar'
-    destinationDir = file('src/main/dist/lawena')
+    archiveFileName = 'lwrtresources.jar'
+    destinationDirectory = file('src/main/dist/lawena')
     from projectDir
     includes = ['cfg/**', 'hud/**']
 }
 
 task packVpks(type: Zip) {
-    archiveName = 'lwrtvpks.jar'
-    destinationDir = file('src/main/dist/lawena')
+    archiveFileName = 'lwrtvpks.jar'
+    destinationDirectory = file('src/main/dist/lawena')
     from projectDir
     includes = ['custom/**']
 }
 
 task packWinBatches(type: Zip) {
-    archiveName = 'lwrtwinstuff.jar'
-    destinationDir = file('src/main/dist/lawena')
+    archiveFileName = 'lwrtwinstuff.jar'
+    destinationDirectory = file('src/main/dist/lawena')
     from projectDir
     includes = ['batch/**', 'vtfcmd/**']
 }
 
 task packSkyboxes(type: Zip) {
-    archiveName = 'skybox.jar'
-    destinationDir = file('src/main/dist/lawena')
+    archiveFileName = 'skybox.jar'
+    destinationDirectory = file('src/main/dist/lawena')
     from projectDir
     includes = ['skybox/**']
     excludes = ['**/*.db']

@@ -6,7 +6,13 @@ import lwrt.SettingsManager.Key;
 import ui.DemoEditorView;
 import util.DemoPreview;
 import util.DemoPreviewFactory;
-import vdm.Tick.*;
+import vdm.Tick.AbstractExec;
+import vdm.Tick.Exec;
+import vdm.Tick.ExecRecord;
+import vdm.Tick.InvalidTick;
+import vdm.Tick.Record;
+import vdm.Tick.Tick;
+import vdm.Tick.TickFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
