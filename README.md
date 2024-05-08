@@ -25,16 +25,18 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
     * Resolution changed from 1280x760 to 1920x1080
     * VModelFOV changed from 70 to 90
     * Motion blur disabled
+    * Minimal HUD disabled
     * Crosshair enabled
     * Combat text enabled
     * Hitsounds enabled
-* Added `-insecure` as default launch option
+* Added `-fullscreen` and `-insecure` as default launch options
 * Added some default cfg settings (thanks Phnx!)
     * `cl_jiggle_bone_framerate_cutoff 0`: fixes botkiller shaking
     * `r_portalsopenall 1`: fixes doorway flash glitch
     * `violence_agibs 1;violence_hgibs 1;violence_ablood 1;violence_hblood 1`: makes sure gibs remain enabled
     * `hud_saytext_time 0`: makes sure chat stays disabled
-* Updated Gradle from 4.3->7.3
+    * `mat_picmic -10`: better graphics
+* Updated Gradle from 4.3 to 7.3
 * Updated Java dependencies
     * com.threerings:getdown:1.6.4->1.7.1
     * net.lingala.zip4j:zip4j:1.3.2->1.3.3

@@ -102,6 +102,7 @@ public class SettingsManager {
         lines.add("mat_motion_blur_enabled " + (getMotionBlur() ? "1" : "0"));
         lines.add("mat_motion_blur_forward_enabled " + (getMotionBlur() ? "1" : "0"));
         lines.add("mat_motion_blur_strength " + (getMotionBlur() ? "1" : "0"));
+        lines.add("mat_picmip -10");
         lines.add((getSteamCloud() ? "//" : "") + "cl_cloud_settings 0");
         lines.add((getCondebug() ? "" : "//") + "con_timestamp 1");
         lines.add("viewmodel_fov_demo " + getViewmodelFov());
@@ -128,7 +129,7 @@ public class SettingsManager {
         lines.add("alias +taunt \"\"");
         lines.add("alias +context_action \"\"");
         lines.add("cl_showfps 0");
-        lines.add("volume 0.5");
+        lines.add("volume 1");
         lines.add("hud_fastswitch 1");
         lines.add("cl_hud_minmode " + (getHudMinmode() ? "1" : "0"));
         lines.add("cl_hud_playerclass_playermodel_showed_confirm_dialog 1");
@@ -141,6 +142,9 @@ public class SettingsManager {
         lines.add((getViewmodelSwitch().equals("on") ? "//" : "") + "lockviewmodelsoff");
         lines.add((crosshairswitch ? "//" : "") + "lockcrosshair");
         lines.add((crosshairswitch ? "//" : "") + "alias toggle \"\"");
+        lines.add("cl_crosshair_red 255");
+        lines.add("cl_crosshair_green 255");
+        lines.add("cl_crosshair_blue 255");
         lines.add("alias net_graph \"\"");
         lines.add("alias cl_showfps \"\"");
         lines.add("alias voice_enable \"\"");
@@ -159,6 +163,7 @@ public class SettingsManager {
         lines.add("hud_saytext_time 0");
         lines.add("alias hud_saytext_time \"\"");
         lines.add("tf_use_min_viewmodels 0");
+        lines.add("tf_use_match_hud " + (getHud().equals("hud_default") ? "1" : "0"));
         lines.add("alias tf_use_min_viewmodels \"\"");
         lines.add("gameui_preventescapetoshow");
         Files.write(Paths.get("cfg", "settings.cfg"), lines, Charset.forName("UTF-8"));
@@ -516,7 +521,7 @@ public class SettingsManager {
         Voice(false),
         SteamCloud(false),
         Condebug(true),
-        HudMinmode(true),
+        HudMinmode(false),
         HudPlayerModel(false),
         Particles(""),
         LogConsoleLevel("FINER"),
