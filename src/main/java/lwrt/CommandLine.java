@@ -55,6 +55,8 @@ public abstract class CommandLine {
      */
     protected abstract ProcessBuilder getBuilderStartTF2(String gamePath);
 
+    protected abstract ProcessBuilder getBuilderStartHL2(String gamePath);
+
     protected abstract ProcessBuilder getBuilderStartSteam(String steamPath);
 
     protected abstract ProcessBuilder getBuilderStartHLAE(String hlaePath, String gamePath);
@@ -67,6 +69,8 @@ public abstract class CommandLine {
      * <code>null</code> if it couldn't be created.
      */
     protected abstract ProcessBuilder getBuilderTF2ProcessKiller();
+
+    protected abstract ProcessBuilder getBuilderHL2ProcessKiller();
 
     protected abstract ProcessBuilder getBuilderHLAEProcessKiller();
 
@@ -351,6 +355,9 @@ public abstract class CommandLine {
                     break;
                 case "hlae":
                     pb = getBuilderStartHLAE(cfg.getString(Key.HlaePath), cfg.getString(Key.TfDir));
+                    break;
+                case "hl2":
+                    pb = getBuilderStartHL2(cfg.getString(Key.TfDir));
                     break;
                 default:
                     pb = getBuilderStartTF2(cfg.getString(Key.TfDir));

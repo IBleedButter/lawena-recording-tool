@@ -743,8 +743,7 @@ public class Lawena {
         registerValidation(view.getCmbFramerate(), "[1-9][0-9]*", view.getLblFrameRate());
         selectComboItem(view.getCmbHud(), settings.getHud(), Key.Hud.getAllowedValues());
         selectComboItem(view.getCmbQuality(), settings.getDxlevel(), Key.DxLevel.getAllowedValues());
-        selectComboItem(view.getCmbViewmodel(), settings.getViewmodelSwitch(),
-            Key.ViewmodelSwitch.getAllowedValues());
+        selectComboItem(view.getCmbViewmodel(), settings.getViewmodelSwitch(), Key.ViewmodelSwitch.getAllowedValues());
         selectSkyboxFromSettings();
         view.getCmbResolution().setSelectedItem(settings.getWidth() + "x" + settings.getHeight());
         view.getCmbFramerate().setSelectedItem(settings.getFramerate() + "");
@@ -763,6 +762,7 @@ public class Lawena {
         view.getInstallFonts().setSelected(settings.getBoolean(Key.InstallFonts));
         view.getSourceLaunch().setSelected(true);
         view.getSourceLaunch().setSelected(settings.getString(Key.LaunchMode).equals("tf2"));
+        view.getSourceOldLaunch().setSelected(settings.getString(Key.LaunchMode).equals("hl2"));
         view.getSteamLaunch().setSelected(settings.getString(Key.LaunchMode).equals("steam"));
         view.getHlaeLaunch().setSelected(settings.getString(Key.LaunchMode).equals("hlae"));
         view.getCopyUserConfig().setSelected(settings.getBoolean(Key.CopyUserConfig));
@@ -789,11 +789,9 @@ public class Lawena {
             settings.setFramerate(Integer.parseInt(framerate));
         }
         settings.setHud(Key.Hud.getAllowedValues().get(view.getCmbHud().getSelectedIndex()));
-        settings.setViewmodelSwitch(Key.ViewmodelSwitch.getAllowedValues().get(
-            view.getCmbViewmodel().getSelectedIndex()));
+        settings.setViewmodelSwitch(Key.ViewmodelSwitch.getAllowedValues().get(view.getCmbViewmodel().getSelectedIndex()));
         settings.setViewmodelFov((int) view.getSpinnerViewmodelFov().getValue());
-        settings
-            .setDxlevel(Key.DxLevel.getAllowedValues().get(view.getCmbQuality().getSelectedIndex()));
+        settings.setDxlevel(Key.DxLevel.getAllowedValues().get(view.getCmbQuality().getSelectedIndex()));
         settings.setMotionBlur(view.getEnableMotionBlur().isSelected());
         settings.setCombattext(!view.getDisableCombatText().isSelected());
         settings.setCrosshair(!view.getDisableCrosshair().isSelected());
@@ -813,12 +811,13 @@ public class Lawena {
         }
         settings.setCustomResources(selected);
         settings.setHudMinmode(view.getUseHudMinmode().isSelected());
-        settings
-            .setBoolean(Key.DeleteBackupsWhenRestoring, view.getChckbxmntmBackupMode().isSelected());
+        settings.setBoolean(Key.DeleteBackupsWhenRestoring, view.getChckbxmntmBackupMode().isSelected());
         settings.setBoolean(Key.InstallFonts, view.getInstallFonts().isSelected());
         settings.setBoolean(Key.CopyUserConfig, view.getCopyUserConfig().isSelected());
         if (view.getSourceLaunch().isSelected()) {
             settings.setString(Key.LaunchMode, "tf2");
+        } else if (view.getSourceOldLaunch().isSelected()) {
+            settings.setString(Key.LaunchMode, "hl2");
         } else if (view.getSteamLaunch().isSelected()) {
             settings.setString(Key.LaunchMode, "steam");
         } else if (view.getHlaeLaunch().isSelected()) {

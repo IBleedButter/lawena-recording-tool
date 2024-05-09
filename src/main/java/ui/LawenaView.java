@@ -76,6 +76,7 @@ public class LawenaView extends JFrame {
     private JMenu launchMode;
     private ButtonGroup launchModeGroup;
     private JRadioButtonMenuItem sourceLaunch;
+    private JRadioButtonMenuItem sourceOldLaunch;
     private JRadioButtonMenuItem steamLaunch;
     private JRadioButtonMenuItem hlaeLaunch;
     private JMenuItem selectHlaeLocation;
@@ -148,13 +149,14 @@ public class LawenaView extends JFrame {
         mnAdvanced.add(mnLaunchMode);
 
         JRadioButtonMenuItem mnSourceLaunch = new JRadioButtonMenuItem("Launch using TF2 (default)");
+        JRadioButtonMenuItem mnSourceOldLaunch = new JRadioButtonMenuItem("Launch using HL2");
         JRadioButtonMenuItem mnSteamLaunch = new JRadioButtonMenuItem("Launch using Steam");
-        JRadioButtonMenuItem mnHlaeLaunch =
-            new JRadioButtonMenuItem("Launch using HLAE with -insecure");
+        JRadioButtonMenuItem mnHlaeLaunch = new JRadioButtonMenuItem("Launch using HLAE with -insecure");
         JSeparator separatorLaunchMode = new JSeparator();
         JMenuItem mnHlaePath = new JMenuItem("Select HLAE executable...");
 
         mnLaunchMode.add(mnSourceLaunch);
+        mnLaunchMode.add(mnSourceOldLaunch);
         mnLaunchMode.add(mnSteamLaunch);
         mnLaunchMode.add(mnHlaeLaunch);
         mnLaunchMode.add(separatorLaunchMode);
@@ -162,6 +164,7 @@ public class LawenaView extends JFrame {
 
         ButtonGroup group = new ButtonGroup();
         group.add(mnSourceLaunch);
+        group.add(mnSourceOldLaunch);
         group.add(mnSteamLaunch);
         group.add(mnHlaeLaunch);
 
@@ -658,6 +661,7 @@ public class LawenaView extends JFrame {
         this.mntmChangeTfLaunch = mntmChangeTfLaunch;
         this.launchMode = mnLaunchMode;
         this.sourceLaunch = mnSourceLaunch;
+        this.sourceOldLaunch = mnSourceOldLaunch;
         this.steamLaunch = mnSteamLaunch;
         this.hlaeLaunch = mnHlaeLaunch;
         this.selectHlaeLocation = mnHlaePath;
@@ -876,6 +880,10 @@ public class LawenaView extends JFrame {
 
     public JRadioButtonMenuItem getSourceLaunch() {
         return sourceLaunch;
+    }
+
+    public JRadioButtonMenuItem getSourceOldLaunch() {
+        return sourceOldLaunch;
     }
 
     public JRadioButtonMenuItem getSteamLaunch() {

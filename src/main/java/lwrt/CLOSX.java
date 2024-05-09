@@ -28,6 +28,13 @@ public class CLOSX extends CommandLine {
     }
 
     @Override
+    public ProcessBuilder getBuilderStartHL2(String gamePath)
+    {
+        // no need to implement this yet
+        return null;
+    }
+
+    @Override
     public ProcessBuilder getBuilderStartHLAE(String hlaePath, String gamePath) {
         throw new UnsupportedOperationException("HLAE is not supported here");
     }
@@ -47,6 +54,12 @@ public class CLOSX extends CommandLine {
     @Override
     public ProcessBuilder getBuilderTF2ProcessKiller() {
         return new ProcessBuilder("pkill", "-9", "hl2_osx");
+    }
+
+    @Override
+    public ProcessBuilder getBuilderHL2ProcessKiller() {
+        // no need to implement this yet
+        return null;
     }
 
     @Override

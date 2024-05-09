@@ -9,22 +9,26 @@ import java.util.logging.Level;
 
 public class CLLinux extends CommandLine {
 
-    private String hl2 = "hl2.sh";
-
+    private String tf2 = "tf.sh";
 
     @Override
     public ProcessBuilder getBuilderStartTF2(String gamePath) {
-        Path path = Paths.get(gamePath, "..", "hl2.sh");
+        Path path = Paths.get(gamePath, "..", tf2);
         try {
-            Path run = Paths.get(this.getSteamPath().toString(),
-                "ubuntu12_32", "steam-runtime", "run.sh");
+            Path run = Paths.get(this.getSteamPath().toString(), "ubuntu12_64", "steam-runtime-sniper", "run");
             path = path.toRealPath();
             return new ProcessBuilder(run.toString(), path.toString());
         } catch (IOException e) {
             log.warning("Could not obtain real path of game executable: " + e.toString());
         }
         return new ProcessBuilder(path.toString());
+    }
 
+    @Override
+    public ProcessBuilder getBuilderStartHL2(String gamePath)
+    {
+        // no need to implement this yet
+        return null;
     }
 
     @Override
@@ -46,7 +50,13 @@ public class CLLinux extends CommandLine {
 
     @Override
     public ProcessBuilder getBuilderTF2ProcessKiller() {
-        return new ProcessBuilder("pkill", "-9", "hl2_linux");
+        return new ProcessBuilder("pkill", "-9", "tf_linux64");
+    }
+
+    @Override
+    public ProcessBuilder getBuilderHL2ProcessKiller() {
+        // no need to implement this yet
+        return null;
     }
 
     @Override

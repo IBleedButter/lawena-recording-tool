@@ -11,6 +11,7 @@ import java.util.logging.Level;
 public class CLWindows extends CommandLine {
 
     private String tf2 = "tf_win64.exe";
+    private String hl2 = "hl2.exe";
 
     @Override
     public ProcessBuilder getBuilderStartTF2(String gamePath) {
@@ -21,7 +22,17 @@ public class CLWindows extends CommandLine {
             log.warning("Could not obtain real path of game executable: " + e.toString());
         }
         return new ProcessBuilder(path.toString());
+    }
 
+    @Override
+    public ProcessBuilder getBuilderStartHL2(String gamePath) {
+        Path path = Paths.get(gamePath, "..", hl2);
+        try {
+            path = path.toRealPath();
+        } catch (IOException e) {
+            log.warning("Could not obtain real path of game executable: " + e.toString());
+        }
+        return new ProcessBuilder(path.toString());
     }
 
     @Override
@@ -50,6 +61,11 @@ public class CLWindows extends CommandLine {
     @Override
     public ProcessBuilder getBuilderTF2ProcessKiller() {
         return new ProcessBuilder("taskkill", "/F", "/IM", tf2);
+    }
+
+    @Override
+    public ProcessBuilder getBuilderHL2ProcessKiller() {
+        return new ProcessBuilder("taskkill", "/F", "/IM", hl2);
     }
 
     @Override
@@ -97,11 +113,11 @@ public class CLWindows extends CommandLine {
     @Override
     public boolean isRunningTF2() {
         String line;
-        ProcessBuilder[] builders =
-            {
-                new ProcessBuilder("tasklist", "/fi", "\"imagename eq " + tf2 + "\"", "/nh", "/fo",
-                    "csv"),
-                new ProcessBuilder("cscript", "//NoLogo", new File("batch\\procchk.vbs").getPath(), tf2)};
+        ProcessBuilder[] builders = {
+            new ProcessBuilder("tasklist", "/fi", "\"imagename eq " + tf2 + "\"", "/nh", "/fo", "csv"),
+            new ProcessBuilder("tasklist", "/fi", "\"imagename eq " + hl2 + "\"", "/nh", "/fo", "csv"),
+            new ProcessBuilder("cscript", "//NoLogo", new File("batch\\procchk.vbs").getPath(), tf2)
+        };
         for (ProcessBuilder pb : builders) {
             try {
                 Process p = pb.start();

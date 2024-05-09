@@ -545,7 +545,7 @@ public class SettingsManager {
         BigFolderMBThreshold(200, 0, Integer.MAX_VALUE),
         SetSystemLookAndFeel(true),
         HlaePath(""),
-        LaunchMode("tf2"),
+        LaunchMode("tf2", "tf2", "hl2", "steam", "hlae"),
         LaunchOptions("-novid -console -insecure");
 
         private Object value;
