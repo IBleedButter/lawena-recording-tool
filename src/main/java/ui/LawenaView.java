@@ -327,7 +327,7 @@ public class LawenaView extends JFrame {
             .setToolTipText("<html>Select your preferred HUD here. You can also you use a custom HUD," +
                 "<br>in which case you should put the HUD folder into lawena/custom folder" +
                 "<br>and then mark it in the Custom Resources sidebar.");
-        cmbHud.setModel(new DefaultComboBoxModel<>(new String[]{"Kill notices only", "Medic (HP & übercharge)",
+        cmbHud.setModel(new DefaultComboBoxModel<>(new String[]{"Kill notices only", "Medic (hp & ubercharge)",
             "Default", "Custom"}));
         GridBagConstraints gbc_cmbHud = new GridBagConstraints();
         gbc_cmbHud.gridwidth = 3;

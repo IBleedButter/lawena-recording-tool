@@ -962,6 +962,18 @@ Scheme
 				"dropshadow"	"1"
 			}
 		}
+		"DamageNumbers"
+		{
+			"1"
+			{
+				"name"		"HandelGothic BT"
+				"tall"		"20"
+				"weight"	"500"
+				"additive"	"0"
+				"antialias" "1"
+				"dropshadow"	"1"
+			}
+		}
 		"HudFontSmallest"
 		{
 			"1"
@@ -4300,6 +4312,12 @@ Scheme
 			{
 				"range" "0x0000 0xFFFF"
 			}
-		}			
+			
+		}	
+		"7" 
+		{
+			"font" "resource/HANDGOTN.TTF"
+			"name" "HANDGOTN"
+		}				
 	}
 }
