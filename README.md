@@ -50,27 +50,28 @@ First of all download and install [JDK 17](https://www.oracle.com/java/technolog
 *Optionally install Gradle 7.3, but it's fine if you don't, its wrapper is included here*
 
 Now fetch the source code:
+
 ```
 git clone https://github.com/ibleedbutter/lawena-recording-tool.git
+
 cd lawena-recording-tool.git
 ```
 
-Build .jar on Windows:
+Build `.jar` on Windows:
 
 ```PowerShell
 .\gradlew.bat jar
 ```
 
-Build .exe on Windows (*requires [launch4j](https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/)*):
-```PowerShell
-.\gradlew.bat buildLauncher
-```
-
-Build .jar on Linux:
+Build `.jar` on Linux:
 
 ```Bash
 ./gradlew jar
 ```
+
+## Running Lawena
+
+After building the `.jar` executable, you can run it by either double-clicking on it from your file explorer, or from the terminal with `java -jar lawena.jar`
 
 ## Credits
 
