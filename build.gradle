@@ -4,8 +4,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'distribution'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 21
+targetCompatibility = 21
 
 def mainClassName = 'ui.LwrtGUI'
 def buildtime = new Date().format("yyyyMMddHHmmss")
@@ -73,7 +73,7 @@ jar {
 }
 
 wrapper {
-    gradleVersion = '7.3'
+    gradleVersion = '8.4'
 }
 
 task run(type: JavaExec, dependsOn: 'classes') {
