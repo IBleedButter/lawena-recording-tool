@@ -4,7 +4,7 @@ Lawena is a simple Java program that greatly enhances your TF2 and other Source 
 
 Easy to install and use. Does not interfere with your regular configs, HUD or launch options.
 
-## Features
+## 1. Features
 
 * Insane max quality graphics configuration
 * Recorded files are saved to the directory of your choosing for comfort and order
@@ -18,7 +18,7 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
 * Creates backups in case something goes wrong
 * Automatic updates
 
-## Changes from original Lawena
+## 2. Changes from original Lawena
 
 * Added 64-bit TF2 support
 * Tweaked some default settings
@@ -36,44 +36,52 @@ Easy to install and use. Does not interfere with your regular configs, HUD or la
     * `violence_agibs 1;violence_hgibs 1;violence_ablood 1;violence_hblood 1`: makes sure gibs remain enabled
     * `hud_saytext_time 0`: makes sure chat stays disabled
     * `mat_picmic -10`: better graphics
-* Updated Gradle from 4.3 to 7.3
+* Updated Gradle from 4.3 to 8.4
 * Updated Java dependencies
     * com.threerings:getdown:1.6.4->1.7.1
     * net.lingala.zip4j:zip4j:1.3.2->1.3.3
     * com.github.spullara.mustache.java:compiler:0.9.5->0.9.13
     * junit:junit:4.12->4.13.2
 
-## Building Lawena
+## 3. Building Lawena
 
-First of all download and install [JDK 17](https://www.oracle.com/java/technologies/downloads/#java17)
+First of all download and install [JDK 21](https://www.oracle.com/java/technologies/downloads/#java21)
 
-*Optionally install Gradle 7.3, but it's fine if you don't, its wrapper is included here*
+*Optionally install Gradle 8.4, but it's fine if you don't, its wrapper is included here*
 
 Now fetch the source code:
 
 ```
 git clone https://github.com/ibleedbutter/lawena-recording-tool.git
 
-cd lawena-recording-tool.git
+cd lawena-recording-tool
 ```
 
-Build `.jar` on Windows:
+### 3.1. Windows
 
 ```PowerShell
 .\gradlew.bat jar
 ```
 
-Build `.jar` on Linux:
+### 3.2. Linux
+
+Before the 64-bit update, TF2 shipped with its own `vpk_linux32` binary, but Valve removed it and forgot to replace it, so you'll have to install this manually first:
+
+```Bash
+pip install vpk --break-system-packages
+```
+
+Now you can build Lawena:
 
 ```Bash
 ./gradlew jar
 ```
 
-## Running Lawena
+## 4. Running Lawena
 
 After building the `.jar` executable, you can run it by either double-clicking on it from your file explorer, or from the terminal with `java -jar lawena.jar`
 
-## Credits
+## 5. Credits
 
 * Original project created by Montz (currently inactive)
 * Original developer: [Quantic](http://steamcommunity.com/profiles/76561198012092861/) since June 2013 to December 2018(?)
