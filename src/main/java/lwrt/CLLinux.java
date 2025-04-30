@@ -17,7 +17,7 @@ public class CLLinux extends CommandLine {
         try {
             Path run = Paths.get(this.getSteamPath().toString(), "ubuntu12_64", "steam-runtime-sniper", "run");
             path = path.toRealPath();
-            return new ProcessBuilder(run.toString(), path.toString());
+            return new ProcessBuilder(run.toString(), path.toString(), "--");
         } catch (IOException e) {
             log.warning("Could not obtain real path of game executable: " + e.toString());
         }
@@ -104,7 +104,7 @@ public class CLLinux extends CommandLine {
     public boolean isRunningTF2() {
         boolean found = false;
         try {
-            ProcessBuilder pb = new ProcessBuilder("pgrep", "hl2_linux");
+            ProcessBuilder pb = new ProcessBuilder("pgrep", "tf_linux64");
             Process pr = pb.start();
             found = processOutputHasLine(pr);
         } catch (IOException e) {
@@ -115,7 +115,7 @@ public class CLLinux extends CommandLine {
 
     @Override
     public Path resolveVpkToolPath(Path tfpath) {
-        Path path = tfpath.resolve(String.join(File.separator, "..", "bin", "vpk_linux32"));
+        Path path = Paths.get(System.getProperty("user.home"), ".local", "bin", "vpk");
         try {
             Files.setPosixFilePermissions(path, ALL_PERMISSIONS);
         } catch (IOException e) {
