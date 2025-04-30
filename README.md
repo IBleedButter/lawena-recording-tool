@@ -81,7 +81,19 @@ Now you can build Lawena:
 
 After building the `.jar` executable, you can run it by either double-clicking on it from your file explorer, or from the terminal with `java -jar lawena.jar`
 
-## 5. Credits
+## 5. Rendering your movies
+
+If you want a GUI, check out [VirtualDub2](https://sourceforge.net/p/vdfiltermod/wiki/Home)
+
+Otherwise you can use the terminal:
+
+```Bash
+cd ~/.steam/steam/steamapps/common/Team Fortress 2/tf/
+
+ffmpeg -hide_banner -y -framerate 60 -i a1_%04d.tga -i a1_.wav -c:v libx264 -profile:v high -preset veryslow -b:v 15M -pix_fmt yuv420p -g 30 -bf 2 -c:a aac -b:a 384k -ar 48000 -movflags +faststart -x264-params cabac=1 ~/Videos/fragmovie.mp4
+```
+
+## 6. Credits
 
 * Original project created by Montz (currently inactive)
 * Original developer: [Quantic](http://steamcommunity.com/profiles/76561198012092861/) since June 2013 to December 2018(?)
