@@ -28,12 +28,12 @@ class MovieManager {
         String alias = "alias namescroll stmov1";
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(cfg.getMoviePath(), "*.tga")) {
             for (Path moviefile : stream) {
-                String filename = moviefile.getFileName().toString();
+                final String filename = moviefile.getFileName().toString();
                 lastmovie = (lastmovie.compareTo(filename) > 0 ? lastmovie : filename);
             }
         }
         if (!lastmovie.equals("")) {
-            int idx = "abcdefghijklmnopqrstuvwxy".indexOf(lastmovie.charAt(0));
+            final int idx = "abcdefghijklmnopqrstuvwxy".indexOf(lastmovie.charAt(0));
             if (idx >= 0) {
                 alias = "alias namescroll stmov" + (idx + 2);
             } else if (lastmovie.charAt(0) == 'z') {
@@ -44,12 +44,12 @@ class MovieManager {
     }
 
     public void createMovienameCfgs() throws IOException {
-        String[] prefixes =
+        final String[] prefixes =
             {"a1", "b2", "c3", "d4", "e5", "f6", "g7", "h8", "i9", "j10", "k11", "l12", "m13", "n14",
                 "o15", "p16", "q17", "r18", "s19", "t20", "u21", "v22", "w23", "x24", "y25", "z26"};
-        String video = cfg.getString(Key.SourceRecorderVideoFormat);
-        String audio = cfg.getString(Key.SourceRecorderAudioFormat);
-        int quality = cfg.getInt(Key.SourceRecorderJpegQuality);
+        final String video = cfg.getString(Key.SourceRecorderVideoFormat);
+        final String audio = cfg.getString(Key.SourceRecorderAudioFormat);
+        final int quality = cfg.getInt(Key.SourceRecorderJpegQuality);
         Path folder = Paths.get("cfg", "mov");
         if (!Files.exists(folder)) {
             Files.createDirectories(folder);
@@ -68,11 +68,11 @@ class MovieManager {
         } else {
             moviePath = cfg.getMoviePath().toString();
         }
-        String escape = needsEscape(moviePath) ? "\"" : "";
+        final String escape = needsEscape(moviePath) ? "\"" : "";
         moviePath = moviePath + (moviePath.isEmpty() ? "" : File.separator);
         log.info("Resolved movie recording path: " + moviePath);
         for (String prefix : prefixes) {
-            String command = "startmovie " + escape + moviePath + prefix + "_" + escape + " " +
+            String command = "startmovie " + escape + "test/" + prefix + "_" + escape + " " +
                 video + " " + ((video.equals("h264") || video.equals("webm")) ? "" : audio) + (video.equals("jpg") ? " jpeg_quality " + quality : "");
             List<String> lines = Collections.singletonList(command);
             Files.write(Paths.get("cfg", "mov", prefix + ".cfg"), lines, Charset.forName("UTF-8"));

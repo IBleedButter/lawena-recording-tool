@@ -404,6 +404,7 @@ public class Lawena {
         loadSettings();
 
         view.getMntmChangeTfDirectory().addActionListener(new Tf2FolderChange());
+        view.getMntmChangeMovieDirectory().addActionListener(new MovieFolderChange());
         view.getSelectHlaeLocation().addActionListener(new HlaePathChange());
         view.getMntmRevertToDefault().addActionListener(e -> {
             Path movies = settings.getMoviePath();

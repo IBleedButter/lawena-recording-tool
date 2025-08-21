@@ -165,7 +165,6 @@ public class SettingsManager {
         lines.add("tf_use_min_viewmodels 0");
         lines.add("tf_use_match_hud " + (getHud().equals("hud_default") ? "1" : "0"));
         lines.add("alias tf_use_min_viewmodels \"\"");
-        lines.add("gameui_preventescapetoshow");
         Files.write(Paths.get("cfg", "settings.cfg"), lines, Charset.forName("UTF-8"));
 
         if (demoname != null) {
@@ -372,6 +371,15 @@ public class SettingsManager {
 
     // Getters
 
+    public Path getMoviePath() {
+        String value = getString(Key.MovieDir);
+        return (value == null ? null : Paths.get(value));
+    }
+
+    public void setMoviePath(Path value) {
+        setString(Key.MovieDir, value.toString());
+    }
+
     public String getSkybox() {
         return getString(Key.Skybox);
     }
@@ -492,6 +500,7 @@ public class SettingsManager {
 
     public enum Key {
         TfDir(""),
+        MovieDir(""),
         SteamDir(""),
         AltSteamDir(""),
         Width(1920, 640, Integer.MAX_VALUE),
