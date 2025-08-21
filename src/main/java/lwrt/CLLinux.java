@@ -15,7 +15,8 @@ public class CLLinux extends CommandLine {
     public ProcessBuilder getBuilderStartTF2(String gamePath) {
         Path path = Paths.get(gamePath, "..", tf2);
         try {
-            Path run = Paths.get(this.getSteamPath().toString(), "ubuntu12_64", "steam-runtime-sniper", "run");
+            final String homeDirectory = System.getProperty("user.home");
+            Path run = Paths.get(homeDirectory, ".local", "share", "Steam", "steamapps", "common", "SteamLinuxRuntime_sniper", "run-in-sniper");
             path = path.toRealPath();
             return new ProcessBuilder(run.toString(), path.toString(), "--");
         } catch (IOException e) {
@@ -28,7 +29,7 @@ public class CLLinux extends CommandLine {
     public ProcessBuilder getBuilderStartHL2(String gamePath)
     {
         // no need to implement this yet
-        return null;
+        throw new UnsupportedOperationException("HL2 is not supported here");
     }
 
     @Override
