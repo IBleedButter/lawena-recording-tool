@@ -71,11 +71,15 @@ Before the 64-bit update, TF2 shipped with its own `vpk_linux32` binary, but Val
 pip install vpk --break-system-packages
 ```
 
+Valve also forgot to move the `server.so` library to the correct folder, so TF2 *thinks* it's still 32-bit. This may cause Lawena to refuse to launch, in which case you can modify `~/.steam/steam/steamapps/common/Team Fortress 2/tf.sh` and change `is_64bit=0` to `is_64bit=1`
+
 Now you can build Lawena:
 
 ```Bash
 ./gradlew jar
 ```
+
+
 
 ## 4. Running Lawena
 
@@ -88,7 +92,7 @@ If you want a GUI, check out [VirtualDub2](https://sourceforge.net/p/vdfiltermod
 Otherwise you can use the terminal:
 
 ```Bash
-cd ~/.steam/steam/steamapps/common/Team Fortress 2/tf/
+cd "~/.steam/steam/steamapps/common/Team Fortress 2/tf/"
 
 ffmpeg -hide_banner -y -framerate 60 -i a1_%04d.tga -i a1_.wav -c:v libx264 -profile:v high -preset veryslow -b:v 15M -pix_fmt yuv420p -g 30 -bf 2 -c:a aac -b:a 384k -ar 48000 -movflags +faststart -x264-params cabac=1 ~/Videos/fragmovie.mp4
 ```
