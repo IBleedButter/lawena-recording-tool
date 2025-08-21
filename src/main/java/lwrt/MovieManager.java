@@ -72,7 +72,7 @@ class MovieManager {
         moviePath = moviePath + (moviePath.isEmpty() ? "" : File.separator);
         log.info("Resolved movie recording path: " + moviePath);
         for (String prefix : prefixes) {
-            String command = "startmovie " + escape + "test/" + prefix + "_" + escape + " " +
+            String command = "startmovie " + escape + prefix + "_" + escape + " " +
                 video + " " + ((video.equals("h264") || video.equals("webm")) ? "" : audio) + (video.equals("jpg") ? " jpeg_quality " + quality : "");
             List<String> lines = Collections.singletonList(command);
             Files.write(Paths.get("cfg", "mov", prefix + ".cfg"), lines, Charset.forName("UTF-8"));
