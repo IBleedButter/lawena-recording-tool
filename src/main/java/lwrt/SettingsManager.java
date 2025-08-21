@@ -372,15 +372,6 @@ public class SettingsManager {
 
     // Getters
 
-    public Path getMoviePath() {
-        String value = getString(Key.MovieDir);
-        return (value == null ? null : Paths.get(value));
-    }
-
-    public void setMoviePath(Path value) {
-        setString(Key.MovieDir, value.toString());
-    }
-
     public String getSkybox() {
         return getString(Key.Skybox);
     }
@@ -501,7 +492,6 @@ public class SettingsManager {
 
     public enum Key {
         TfDir(""),
-        MovieDir(""),
         SteamDir(""),
         AltSteamDir(""),
         Width(1920, 640, Integer.MAX_VALUE),

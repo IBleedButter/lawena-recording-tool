@@ -61,7 +61,6 @@ public class LawenaView extends JFrame {
     private JTable tableCustomContent;
     private JTabbedPane tabbedPane;
     private JMenuItem mntmChangeTfDirectory;
-    private JMenuItem mntmChangeMovieDirectory;
     private JMenuItem mntmSaveSettings;
     private JMenuItem mntmSelectEnhancedParticles;
     private JMenuItem mntmAddCustomSettings;
@@ -97,9 +96,6 @@ public class LawenaView extends JFrame {
 
         JMenuItem mntmChangeTfDirectory = new JMenuItem("Change TF2 Folder...");
         mnFile.add(mntmChangeTfDirectory);
-
-        JMenuItem mntmChangeMovieDirectory = new JMenuItem("Change Movie Folder...");
-        mnFile.add(mntmChangeMovieDirectory);
 
         JSeparator separator_4 = new JSeparator();
         mnFile.add(separator_4);
@@ -643,7 +639,6 @@ public class LawenaView extends JFrame {
         this.tableCustomContent = tableCustomContent;
         this.tabbedPane = tabbedPane;
         this.mntmChangeTfDirectory = mntmChangeTfDirectory;
-        this.mntmChangeMovieDirectory = mntmChangeMovieDirectory;
         this.lblStatus = lblStatus;
         this.cmbViewmodel = cmbViewmodel;
         this.lblPreview = lblPreview;
@@ -776,10 +771,6 @@ public class LawenaView extends JFrame {
 
     public JMenuItem getMntmChangeTfDirectory() {
         return mntmChangeTfDirectory;
-    }
-
-    public JMenuItem getMntmChangeMovieDirectory() {
-        return mntmChangeMovieDirectory;
     }
 
     public JLabel getLblStatus() {
